@@ -1,4 +1,5 @@
 package ru.stqa.training.addressbook;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
