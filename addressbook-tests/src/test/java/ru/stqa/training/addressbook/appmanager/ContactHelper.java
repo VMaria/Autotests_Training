@@ -1,8 +1,9 @@
 package ru.stqa.training.addressbook.appmanager;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -18,15 +19,22 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
 
         type(By.name("firstname"),contactData.getFname());
         type(By.name("lastname"),contactData.getLname());
         type(By.name("title"),contactData.getTitle());
         type(By.name("address"),contactData.getAddress());
-        click(By.xpath(contactData.getDay()));
-        click(By.xpath(contactData.getMonth()));
+        new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getDay());
+        new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getMonth());
         type(By.name("byear"),contactData.getYear());
+        if (creation) {
+
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void initContactCreation() {
