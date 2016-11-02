@@ -25,17 +25,18 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"),contactData.getLname());
         type(By.name("title"),contactData.getTitle());
         type(By.name("address"),contactData.getAddress());
-        new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getDay());
-        new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getMonth());
+        select(By.name("bday"), contactData.getDay());
+        select(By.name("bmonth"), contactData.getMonth());
         type(By.name("byear"),contactData.getYear());
         if (creation) {
 
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            select(By.name("new_group"), contactData.getGroup());
         } else {
 
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
+
 
     public void initContactCreation() {
 
