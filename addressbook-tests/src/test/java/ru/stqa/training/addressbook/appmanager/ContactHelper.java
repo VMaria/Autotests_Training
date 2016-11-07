@@ -30,7 +30,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("byear"),contactData.getYear());
         if (creation) {
 
-            select(By.name("new_group"), contactData.getGroup());
+                select(By.name("new_group"), contactData.getGroup());
         } else {
 
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -68,12 +68,12 @@ public class ContactHelper extends HelperBase {
     }
 
     public boolean isThereAContact() {
-        return isElementPresent(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
+        return isElementPresent(By.xpath("//tr[@name='entry']"));
     }
 
-    public void createContact(ContactData contact, boolean a) {
+    public void createContact(ContactData contact) {
         initContactCreation();
-        fillContactForm(contact, a);
+        fillContactForm(contact, true);
         submitContactCreation();
     }
 }

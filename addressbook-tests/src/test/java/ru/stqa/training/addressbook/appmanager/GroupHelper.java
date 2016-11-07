@@ -61,6 +61,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public boolean isThereAGroup() {
-        return isElementPresent(By.xpath("//div[@id='content']/form/span[1]/input"));
+
+        return isElementPresent(By.cssSelector(".group"));
     }
 }

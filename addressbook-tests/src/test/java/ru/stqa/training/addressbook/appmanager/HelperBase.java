@@ -36,8 +36,8 @@ public class HelperBase {
 
         Select select = new Select(wd.findElement(locator));
         select.selectByVisibleText(text);
-
     }
+
 
     public boolean isAlertPresent() {
 
