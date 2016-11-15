@@ -5,11 +5,9 @@ import org.testng.annotations.Test;
 import ru.stqa.training.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
-
 
     @Test
     public void testGroupCreation() {
@@ -26,6 +24,8 @@ public class GroupCreationTests extends TestBase {
         Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);
         after.sort(byId);
+        System.out.println(after);
+        System.out.println(before);
         Assert.assertEquals(before, after);
     }
 }
