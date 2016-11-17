@@ -8,7 +8,9 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -47,9 +49,9 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void initContactModification(int index) {
+    public void initContactModification(int id) {
 
-        wd.findElements(By.cssSelector("img[src='icons/pencil.png']")).get(index).click();
+        wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
     }
 
     public void submitContactModification() {
@@ -60,6 +62,11 @@ public class ContactHelper extends HelperBase {
     public void selectContact(int index) {
 
         wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public void selectContactById(int id) {
+
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void deleteSelectedContact() {
@@ -73,6 +80,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public boolean isThereAContact() {
+
         return isElementPresent(By.xpath("//tr[@name='entry']"));
     }
 
@@ -82,15 +90,15 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
     }
 
-    public void modify(int index, ContactData contact) {
-        initContactModification(index);
+    public void modify(ContactData contact) {
+        initContactModification(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
     }
 
 
-    public void delete(int index) {
-        selectContact(index);
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
         deleteSelectedContact();
         closeDialogWindow();
     }
@@ -107,6 +115,20 @@ public class ContactHelper extends HelperBase {
                         withDay("5").withMonth("January").withYear("2000").withGroup("test1");
                 contacts.add(contact);
             }
+        return contacts;
+    }
+
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            String fname = element.findElement(By.xpath(".//td[3]")).getText();
+            String lname = element.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").withAddress("Address").
+                    withDay("5").withMonth("January").withYear("2000").withGroup("test1");
+            contacts.add(contact);
+        }
         return contacts;
     }
 }
