@@ -2,42 +2,15 @@ package ru.stqa.training.addressbook.model;
 
 public class ContactData {
 
-    private int id;
-    private final String fname;
-    private final String lname;
-    private final String title;
-    private final String address;
-    private final String day;
-    private final String month;
-    private final String year;
+    private int id = Integer.MAX_VALUE;
+    private String fname;
+    private String lname;
+    private String title;
+    private String address;
+    private String day;
+    private String month;
+    private String year;
     private String group;
-
-
-    public ContactData(String fname, String lname, String title, String address, String day, String month, String year, String group) {
-
-        this.id = Integer.MAX_VALUE;
-        //this.id = 0;
-        this.fname = fname;
-        this.lname = lname;
-        this.title = title;
-        this.address = address;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.group = group;
-    }
-
-    public ContactData(int id, String fname, String lname, String title, String address, String day, String month, String year, String group) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.title = title;
-        this.address = address;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.group = group;
-    }
 
     public int getId() {
 
@@ -83,6 +56,53 @@ public class ContactData {
 
         return group;
     }
+
+    public ContactData withId(int id) {
+
+        this.id = id;
+        return this;
+    }
+
+    public ContactData withFname(String fname) {
+        this.fname = fname;
+        return this;
+    }
+
+    public ContactData withLname(String lname) {
+        this.lname = lname;
+        return this;
+    }
+
+    public ContactData withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withDay(String day) {
+        this.day = day;
+        return this;
+    }
+
+    public ContactData withMonth(String month) {
+        this.month = month;
+        return this;
+    }
+
+    public ContactData withYear(String year) {
+        this.year = year;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
 
     @Override
     public boolean equals(Object o) {
