@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.addressbook.model.ContactData;
+import ru.stqa.training.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -118,16 +119,15 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String fname = element.findElement(By.xpath(".//td[3]")).getText();
             String lname = element.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").withAddress("Address").
-                    withDay("5").withMonth("January").withYear("2000").withGroup("test1");
-            contacts.add(contact);
+            contacts.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").withAddress("Address").
+                    withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
         }
         return contacts;
     }

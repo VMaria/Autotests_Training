@@ -1,20 +1,20 @@
 package ru.stqa.training.addressbook.model;
 
 import com.google.common.collect.ForwardingSet;
-
 import java.util.HashSet;
 import java.util.Set;
-
 
 public class Groups extends ForwardingSet<GroupData>{
 
     private Set<GroupData> delegate;
 
     public Groups(Groups groups) {
+
         this.delegate = new HashSet<GroupData>(groups.delegate);
     }
 
     public Groups() {
+
         this.delegate = new HashSet<GroupData>();
     }
 
@@ -25,7 +25,7 @@ public class Groups extends ForwardingSet<GroupData>{
         return groups;
     }
 
-    public Groups withoutAdded(GroupData group) {
+    public Groups without(GroupData group) {
 
         Groups groups  = new Groups(this);
         groups.remove(group);
@@ -34,6 +34,7 @@ public class Groups extends ForwardingSet<GroupData>{
 
     @Override
     protected Set<GroupData> delegate() {
-        return null;
+
+        return delegate;
     }
 }
