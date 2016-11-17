@@ -76,13 +76,27 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.xpath("//tr[@name='entry']"));
     }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
         initContactCreation();
         fillContactForm(contact, true);
         submitContactCreation();
     }
 
-    public List<ContactData> getContactList() {
+    public void modify(int index, ContactData contact) {
+        initContactModification(index);
+        fillContactForm(contact, false);
+        submitContactModification();
+    }
+
+
+    public void delete(int index) {
+        selectContact(index);
+        deleteSelectedContact();
+        closeDialogWindow();
+    }
+
+
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
