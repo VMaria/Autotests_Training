@@ -44,7 +44,6 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-
     public void initContactCreation() {
 
         click(By.linkText("add new"));
@@ -99,14 +98,12 @@ public class ContactHelper extends HelperBase {
         contactCache = null;
     }
 
-
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContact();
         contactCache = null;
         closeDialogWindow();
     }
-
 
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
@@ -124,8 +121,6 @@ public class ContactHelper extends HelperBase {
 
     private Contacts contactCache = null;
 
-
-
     public Contacts all() {
 
         if (contactCache != null) {
@@ -141,5 +136,9 @@ public class ContactHelper extends HelperBase {
                     withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
         }
         return contactCache;
+    }
+
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
