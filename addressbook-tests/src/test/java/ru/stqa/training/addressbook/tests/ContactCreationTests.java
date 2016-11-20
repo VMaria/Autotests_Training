@@ -1,6 +1,5 @@
 package ru.stqa.training.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.training.addressbook.model.ContactData;
 import ru.stqa.training.addressbook.model.Contacts;
@@ -13,8 +12,9 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation() {
 
         Contacts before = app.contact().all();
-        ContactData contact = new ContactData().withFname("FirstName").withLname("LastName").withTitle("title").withAddress("Address").
-                withDay("5").withMonth("January").withYear("2000").withGroup("test1");
+        ContactData contact = new ContactData().withFname("FirstName").withLname("LastName").withTitle("title").
+                withAddress("Address").withHomephone("111").withMobilephone("222").withWorkphone("333").withEmail("email").
+                withEmail2("email2").withEmail3("email3").withDay("5").withMonth("January").withYear("2000").withGroup("test1");
         app.contact().create(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size() + 1));

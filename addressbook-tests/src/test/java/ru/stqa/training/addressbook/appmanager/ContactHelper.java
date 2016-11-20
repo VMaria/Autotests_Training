@@ -32,6 +32,12 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contactData.getLname());
         type(By.name("title"), contactData.getTitle());
         type(By.name("address"), contactData.getAddress());
+        type(By.name("home"), contactData.getHomephone());
+        type(By.name("mobile"), contactData.getMobilephone());
+        type(By.name("work"), contactData.getWorkphone());
+        type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
         select(By.name("bday"), contactData.getDay());
         select(By.name("bmonth"), contactData.getMonth());
         type(By.name("byear"), contactData.getYear());
@@ -105,6 +111,23 @@ public class ContactHelper extends HelperBase {
         closeDialogWindow();
     }
 
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModification(contact.getId());
+        String fname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String homephone = wd.findElement(By.name("home")).getAttribute("value");
+        String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
+        String workphone = wd.findElement(By.name("work")).getAttribute("value");
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()). withFname(fname).withLname(lname).
+                withAddress(address).withHomephone(homephone).withMobilephone(mobilephone).
+                withWorkphone(workphone).withEmail(email).withEmail2(email2).withEmail3(email3);
+    }
+
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
@@ -129,10 +152,13 @@ public class ContactHelper extends HelperBase {
         contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String fname = element.findElement(By.xpath(".//td[3]")).getText();
             String lname = element.findElement(By.xpath(".//td[2]")).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").withAddress("Address").
+            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
+                    withAddress("Address").withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).
+                    withEmail("email").withEmail2("email2").withEmail3("email3").
                     withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
         }
         return contactCache;
