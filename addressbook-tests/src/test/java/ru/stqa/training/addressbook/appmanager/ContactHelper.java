@@ -135,8 +135,7 @@ public class ContactHelper extends HelperBase {
 
     public ContactData infoFromViewForm(ContactData contact) {
         initContactView(contact.getId());
-        String fname = wd.findElement(By.name("firstname")).getAttribute("value");
-        String lname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String[] contactname = wd.findElement(By.xpath(".//td[6]")).getText().split("\n");
         String address = wd.findElement(By.name("address")).getAttribute("value");
         String homephone = wd.findElement(By.name("home")).getAttribute("value");
         String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
@@ -145,7 +144,7 @@ public class ContactHelper extends HelperBase {
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
-        return new ContactData().withId(contact.getId()). withFname(fname).withLname(lname).
+        return new ContactData().withId(contact.getId()). withFname(contactname[0]).withLname(contactname[1]).
                 withAddress(address).withHomephone(homephone).withMobilephone(mobilephone).
                 withWorkphone(workphone).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
