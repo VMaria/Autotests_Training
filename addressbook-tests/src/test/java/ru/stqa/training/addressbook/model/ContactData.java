@@ -10,6 +10,7 @@ public class ContactData {
     private String homephone;
     private String mobilephone;
     private String workphone;
+    private String allPhones;
     private String email;
     private String email2;
     private String email3;
@@ -54,6 +55,12 @@ public class ContactData {
     public String getWorkphone() {
         return workphone;
     }
+
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
 
     public String getEmail() {
         return email;
@@ -125,6 +132,11 @@ public class ContactData {
 
     public ContactData withWorkphone(String workphone) {
         this.workphone = workphone;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
         return this;
     }
 

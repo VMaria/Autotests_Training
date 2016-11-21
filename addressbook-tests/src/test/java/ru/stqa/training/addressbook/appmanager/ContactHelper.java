@@ -155,11 +155,16 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String fname = element.findElement(By.xpath(".//td[3]")).getText();
             String lname = element.findElement(By.xpath(".//td[2]")).getText();
-            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
             contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
-                    withAddress("Address").withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).
-                    withEmail("email").withEmail2("email2").withEmail3("email3").
-                    withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
+              withAddress("Address").withAllPhones(allPhones).
+              withEmail("email").withEmail2("email2").withEmail3("email3").
+              withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
+            //String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            //contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
+                  //  withAddress("Address").withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).
+                  //  withEmail("email").withEmail2("email2").withEmail3("email3").
+                  //  withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
         }
         return contactCache;
     }
