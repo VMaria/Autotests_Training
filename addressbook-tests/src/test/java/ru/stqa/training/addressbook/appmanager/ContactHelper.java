@@ -60,6 +60,11 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
     }
 
+    private void initContactView(int id) {
+        wd.findElement(By.cssSelector("a[href='view.php?id=" + id + "']")).click();
+
+    }
+
     public void submitContactModification() {
 
         click(By.name("update"));
@@ -128,6 +133,24 @@ public class ContactHelper extends HelperBase {
                 withWorkphone(workphone).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 
+    public ContactData infoFromViewForm(ContactData contact) {
+        initContactView(contact.getId());
+        String fname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String homephone = wd.findElement(By.name("home")).getAttribute("value");
+        String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
+        String workphone = wd.findElement(By.name("work")).getAttribute("value");
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()). withFname(fname).withLname(lname).
+                withAddress(address).withHomephone(homephone).withMobilephone(mobilephone).
+                withWorkphone(workphone).withEmail(email).withEmail2(email2).withEmail3(email3);
+    }
+
+
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
@@ -174,6 +197,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public int count() {
+
         return wd.findElements(By.name("selected[]")).size();
     }
 }
