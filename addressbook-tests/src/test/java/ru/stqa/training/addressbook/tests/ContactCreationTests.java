@@ -12,13 +12,15 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation() {
 
         Contacts before = app.contact().all();
+        System.out.println("before " + before);
         ContactData contact = new ContactData().withFname("FirstName").withLname("LastName").withTitle("title").
-                withAddress("Address").withHomephone("111").withMobilephone("222").withWorkphone("333").withEmail("email").
+                withAddress("Tverskaya st. 8/1 app.11").withHomephone("111").withMobilephone("222").withWorkphone("333").withEmail("email").
                 withEmail2("email2").withEmail3("email3").withDay("5").withMonth("January").withYear("2000").withGroup("test1");
         app.contact().create(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
+        System.out.println("after " + after);
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
         //Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());

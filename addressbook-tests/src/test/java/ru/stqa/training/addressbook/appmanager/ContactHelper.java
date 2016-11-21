@@ -155,11 +155,15 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String fname = element.findElement(By.xpath(".//td[3]")).getText();
             String lname = element.findElement(By.xpath(".//td[2]")).getText();
+            String address = element.findElement(By.xpath(".//td[4]")).getText();
             String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
+            String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
+            System.out.println("allPhones " + allPhones);
             contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
-              withAddress("Address").withAllPhones(allPhones).
-              withEmail("email").withEmail2("email2").withEmail3("email3").
+              withAddress(address).withAllPhones(allPhones).
+              withAllEmails(allEmails).
               withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
+            System.out.println("contactcache " + contactCache);
             //String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
             //contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
                   //  withAddress("Address").withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).

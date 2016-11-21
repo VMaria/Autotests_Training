@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
             app.contact().create(new ContactData().withFname("FirstName").withLname("LastName").withTitle("title").
-                    withAddress("Address").withHomephone("111").withMobilephone("222").withWorkphone("333").withEmail("email").
+                    withAddress("Tverskaya st. 8/1 app.11").withHomephone("111").withMobilephone("222").withWorkphone("333").withEmail("email").
                     withEmail2("email2").withEmail3("email3").withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
         }
     }
@@ -27,7 +27,7 @@ public class ContactModificationTests extends TestBase {
         app.goTo().homePage();
         Contacts before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
-        ContactData contact = new ContactData().withId(modifiedContact.getId()).withFname("FirstNameModif").withLname("LastName").withTitle("title").withAddress("Address").
+        ContactData contact = new ContactData().withId(modifiedContact.getId()).withFname("FirstNameModif").withLname("LastName").withTitle("title").withAddress("Tverskaya st. 8/1 app.11").
                 withDay("5").withMonth("January").withYear("2000").withGroup("test1");
         app.contact().modify(contact);
         app.goTo().homePage();
