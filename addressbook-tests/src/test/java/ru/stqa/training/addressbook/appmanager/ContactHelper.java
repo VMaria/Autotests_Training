@@ -4,14 +4,11 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.addressbook.model.ContactData;
 import ru.stqa.training.addressbook.model.Contacts;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -41,6 +38,7 @@ public class ContactHelper extends HelperBase {
         select(By.name("bday"), contactData.getDay());
         select(By.name("bmonth"), contactData.getMonth());
         type(By.name("byear"), contactData.getYear());
+        attach(By.name("photo"), contactData.getPhoto());
         if (creation) {
 
             select(By.name("new_group"), contactData.getGroup());
@@ -135,20 +133,16 @@ public class ContactHelper extends HelperBase {
 
     public ContactData infoFromViewForm(ContactData contact) {
         initContactView(contact.getId());
-        String[] contactname = wd.findElement(By.xpath(".//td[6]")).getText().split("\n");
-        String address = wd.findElement(By.name("address")).getAttribute("value");
-        String homephone = wd.findElement(By.name("home")).getAttribute("value");
-        String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
-        String workphone = wd.findElement(By.name("work")).getAttribute("value");
-        String email = wd.findElement(By.name("email")).getAttribute("value");
-        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
-        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String info[] = wd.findElement(By.id("content")).getText().replaceAll("[-():]", "").replaceAll("[MWH]", "")
+                .replaceAll("\\n+\\s*", "\n").replaceFirst(" ", "\n").split("\n");
+        String email = wd.findElement(By.cssSelector("a[href='mailto:email']")).getText();
+        String email2 = wd.findElement(By.cssSelector("a[href='mailto:email2']")).getText();
+        String email3 = wd.findElement(By.cssSelector("a[href='mailto:email3']")).getText();
         wd.navigate().back();
-        return new ContactData().withId(contact.getId()). withFname(contactname[0]).withLname(contactname[1]).
-                withAddress(address).withHomephone(homephone).withMobilephone(mobilephone).
-                withWorkphone(workphone).withEmail(email).withEmail2(email2).withEmail3(email3);
+        return new ContactData().withId(contact.getId()).withFname(info[0]).withLname(info[1]).
+                withAddress(info[2]).withHomephone(info[3]).withMobilephone(info[4]).withWorkphone(info[5]).
+                withEmail(email).withEmail2(email2).withEmail3(email3);
     }
-
 
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
@@ -180,16 +174,14 @@ public class ContactHelper extends HelperBase {
             String address = element.findElement(By.xpath(".//td[4]")).getText();
             String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
             String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
-            System.out.println("allPhones " + allPhones);
             contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
               withAddress(address).withAllPhones(allPhones).
               withAllEmails(allEmails).
               withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
-            System.out.println("contactcache " + contactCache);
-            //String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
-            //contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
-                  //  withAddress("Address").withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).
-                  //  withEmail("email").withEmail2("email2").withEmail3("email3").
+            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withAddress("Address").
+                    withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).
+                    withEmail("email").withEmail2("email2").withEmail3("email3"));
                   //  withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
         }
         return contactCache;
