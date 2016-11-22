@@ -3,16 +3,12 @@ package ru.stqa.training.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.training.addressbook.model.ContactData;
-
-<<<<<<< HEAD
-=======
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
->>>>>>> 38b8d3ab2886594cb3dc32a4dcbf36ff4203e0f0
 public class ContactPageTests extends TestBase{
 
     @BeforeMethod
@@ -28,9 +24,6 @@ public class ContactPageTests extends TestBase{
     }
 
     @Test
-<<<<<<< HEAD
-    public void testContactPage() {
-=======
     public void testContactPages() {
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();
@@ -40,8 +33,6 @@ public class ContactPageTests extends TestBase{
         System.out.println("info from edit= " + contactInfoFromEditForm);
         System.out.println("info from view= " + contactInfoFromViewForm);
         assertThat((contactInfoFromEditForm), equalTo(contactInfoFromViewForm));
->>>>>>> 38b8d3ab2886594cb3dc32a4dcbf36ff4203e0f0
-
     }
 
     private String mergeAll(ContactData contact) {
