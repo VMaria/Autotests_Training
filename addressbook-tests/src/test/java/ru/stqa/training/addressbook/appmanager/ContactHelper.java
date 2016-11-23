@@ -35,18 +35,17 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.getEmail());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
-        select(By.name("bday"), contactData.getDay());
-        select(By.name("bmonth"), contactData.getMonth());
-        type(By.name("byear"), contactData.getYear());
-        attach(By.name("photo"), contactData.getPhoto());
-        if (creation) {
+//        select(By.name("bday"), contactData.getDay());
+//        select(By.name("bmonth"), contactData.getMonth());
+//        type(By.name("byear"), contactData.getYear());
+//        attach(By.name("photo"), contactData.getPhoto());
+//        if (creation) {
+//            select(By.name("new_group"), contactData.getGroup());
+//        } else {
 
-            select(By.name("new_group"), contactData.getGroup());
-        } else {
-
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
-    }
+//            Assert.assertFalse(isElementPresent(By.name("new_group")));
+//        }
+   }
 
     public void initContactCreation() {
 
