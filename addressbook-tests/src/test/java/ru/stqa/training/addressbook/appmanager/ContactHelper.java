@@ -177,8 +177,8 @@ public class ContactHelper extends HelperBase {
               withAddress(address).withAllPhones(allPhones).
               withAllEmails(allEmails).
               withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
-            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
-            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withAddress("Address"));
+//            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+//            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withAddress("Address"));
 //                    withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).
   //                  withEmail("email").withEmail2("email2").withEmail3("email3"));
                   //  withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
