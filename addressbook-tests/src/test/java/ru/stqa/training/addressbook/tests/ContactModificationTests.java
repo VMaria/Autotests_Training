@@ -45,6 +45,7 @@ public class ContactModificationTests extends TestBase {
                 withWorkphone(properties.getProperty("contactworkphone")).withEmail(properties.getProperty("contactemail")).withEmail2(properties.getProperty("contactemail2")).
                 withEmail3(properties.getProperty("contactemail3")).withDay(properties.getProperty("contactday")).withMonth(properties.getProperty("contactmonth")).
                 withYear(properties.getProperty("contactyear")).withGroup(properties.getProperty("contactgroup"));
+        app.contact().modify(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();

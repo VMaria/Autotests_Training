@@ -118,8 +118,8 @@ public class ContactHelper extends HelperBase {
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContact();
-        contactCache = null;
         closeDialogWindow();
+        contactCache = null;
     }
 
     public ContactData infoFromEditForm(ContactData contact) {
