@@ -8,12 +8,10 @@ import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.training.addressbook.model.ContactData;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ContactDataGenerator {
 
@@ -25,6 +23,8 @@ public class ContactDataGenerator {
 
     @Parameter(names = "-f", description = "Target file")
     public String file;
+
+    public Properties properties = new Properties();
 
     public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
@@ -76,11 +76,13 @@ public class ContactDataGenerator {
         }
     }
 
-    private List<ContactData> generateContacts(int count) {
+    private List<ContactData> generateContacts(int count) throws IOException {
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactData().withFname(String.format("FName" + i)).withLname(String.format("LName" + i)).
-                    withAddress(String.format("Address" + i)));
+            contacts.add(new ContactData().withFname(String.format(properties.getProperty("contactfname") + i)).withLname(String.format(properties.getProperty("contactlname") + i)).
+                    withAddress(String.format(properties.getProperty("contactaddress") + i)));
         }
         System.out.println(contacts);
         return contacts;

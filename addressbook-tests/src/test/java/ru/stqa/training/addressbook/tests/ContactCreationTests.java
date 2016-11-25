@@ -48,7 +48,7 @@ public class ContactCreationTests extends TestBase {
     }
 
     @Test(dataProvider = "validContactsFromJson")
-    public void testContactCreation(ContactData contact) {
+    public void testContactCreation(ContactData contact) throws IOException {
         //File photo = new File("src/test/resources/photo.jpg");
         Contacts before = app.contact().all();
         app.contact().create(contact);

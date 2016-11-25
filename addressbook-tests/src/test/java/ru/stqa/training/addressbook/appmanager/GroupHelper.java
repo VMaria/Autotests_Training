@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.training.addressbook.model.GroupData;
 import ru.stqa.training.addressbook.model.Groups;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +108,7 @@ public class GroupHelper extends HelperBase {
 
     private Groups groupCache = null;
 
-    public Groups all() {
+    public Groups all() throws IOException {
         if (groupCache != null) {
             return new Groups(groupCache);
         }

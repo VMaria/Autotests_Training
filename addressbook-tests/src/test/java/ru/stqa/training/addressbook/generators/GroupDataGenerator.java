@@ -8,12 +8,10 @@ import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.training.addressbook.model.GroupData;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class GroupDataGenerator {
 
@@ -25,6 +23,8 @@ public class GroupDataGenerator {
 
     @Parameter(names = "-f", description = "Target file")
     public String file;
+
+    public Properties properties = new Properties();
 
     public static void main(String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
@@ -77,10 +77,13 @@ public class GroupDataGenerator {
         }
     }
 
-    private List<GroupData> generateGroups(int count) {
+    private List<GroupData> generateGroups(int count) throws IOException {
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         List<GroupData> groups = new ArrayList<GroupData>();
         for (int i = 0; i < count; i++) {
-            groups.add(new GroupData().withName(String.format("test" + i)).withHeader(String.format("header" + i)).withFooter(String.format("footer" + i)));
+            groups.add(new GroupData().withName(String.format(properties.getProperty("groupname")+ i)).
+                    withHeader(String.format(properties.getProperty("groupheader") + i)).withFooter(String.format(properties.getProperty("groupfooter") + i)));
         }
         System.out.println(groups);
         return groups;

@@ -48,7 +48,7 @@ public class GroupCreationTests extends TestBase {
     }
 
     @Test(dataProvider = "validGroupsFromJson")
-    public void testGroupCreation(GroupData group) {
+    public void testGroupCreation(GroupData group) throws IOException {
         app.goTo().groupPage();
         app.group().isThereAGroup();
         Groups before = app.group().all();
@@ -61,7 +61,7 @@ public class GroupCreationTests extends TestBase {
     }
 
     @Test
-    public void testBadGroupCreation() {
+    public void testBadGroupCreation() throws IOException {
 
         app.goTo().groupPage();
         app.group().isThereAGroup();

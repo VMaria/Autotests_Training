@@ -7,15 +7,24 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.training.addressbook.model.ContactData;
 import ru.stqa.training.addressbook.model.Contacts;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ContactHelper extends HelperBase {
 
 
+    private final Properties properties;
+
     public ContactHelper(WebDriver wd) {
 
         super(wd);
+        properties = new Properties();
+
     }
 
     public void submitContactCreation() {
@@ -150,7 +159,7 @@ public class ContactHelper extends HelperBase {
                 String fname = element.findElement(By.xpath(".//td[3]")).getText();
                 String lname = element.findElement(By.xpath(".//td[2]")).getText();
                 int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-                ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").withAddress("Address").
+                ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname).withAddress("Address").
                         withDay("5").withMonth("January").withYear("2000").withGroup("test1");
                 contacts.add(contact);
             }
@@ -159,7 +168,9 @@ public class ContactHelper extends HelperBase {
 
     private Contacts contactCache = null;
 
-    public Contacts all() {
+    public Contacts all() throws IOException {
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
         if (contactCache != null) {
             return new Contacts(contactCache);
@@ -173,10 +184,9 @@ public class ContactHelper extends HelperBase {
             String address = element.findElement(By.xpath(".//td[4]")).getText();
             String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
             String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
-            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle("title").
-              withAddress(address).withAllPhones(allPhones).
-              withAllEmails(allEmails).
-              withDay("5").withMonth("January").withYear("2000").withGroup("test1"));
+            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle(properties.getProperty("contacttitle")).
+              withAddress(address).withAllPhones(allPhones).withAllEmails(allEmails).withDay(properties.getProperty("contactday")).
+                    withMonth(properties.getProperty("contactmonth")).withYear(properties.getProperty("contactyear")).withGroup(properties.getProperty("contactgroup")));
 //            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
 //            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withAddress("Address"));
 //                    withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).
