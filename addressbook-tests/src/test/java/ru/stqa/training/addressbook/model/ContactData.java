@@ -3,39 +3,96 @@ package ru.stqa.training.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 @XStreamAlias("contact")
-
 public class ContactData {
 
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
+    @Column(name = "firstname")
     @Expose
     private String fname;
+
+    @Column(name = "lastname")
     @Expose
     private String lname;
+
+    @Column(name = "title")
+    @Expose
     private String title;
+
+    @Column(name = "address")
+    @Type(type = "text")
     @Expose
     private String address;
+
+    @Column(name = "home")
+    @Type(type = "text")
     @Expose
     private String homephone;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     @Expose
     private String mobilephone;
+
+    @Column(name = "work")
+    @Type(type = "text")
     @Expose
     private String workphone;
+
+    @Transient
     @Expose
     private String allPhones;
+
+    @Column(name = "email")
+    @Type(type = "text")
     @Expose
     private String email;
+
+    @Column(name = "email2")
+    @Type(type = "text")
     @Expose
     private String email2;
+
+    @Column(name = "email3")
+    @Type(type = "text")
     @Expose
     private String email3;
+
+    @Transient
+    @Expose
+    private String allEmails;
+
+    @Transient
+    @Column(name = "bday")
+    @Expose
     private String day;
+
+    @Transient
+    @Column(name = "bmonth")
+    @Expose
     private String month;
+
+    @Transient
+    @Column(name = "byear")
+    @Expose
     private String year;
+
+    @Transient
     private String group;
-    private File photo;
+
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
 
     public int getId() {
 
@@ -101,6 +158,7 @@ public class ContactData {
 
 
     public String getAllEmails() {
+
         return allEmails;
     }
 
@@ -125,8 +183,10 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+
+        return new File(photo);
     }
+
     public ContactData withId(int id) {
 
         this.id = id;
@@ -188,8 +248,6 @@ public class ContactData {
         return this;
     }
 
-    private String allEmails;
-
     public ContactData withAllEmails(String allEmails) {
         this.allEmails = allEmails;
         return this;
@@ -217,7 +275,7 @@ public class ContactData {
 
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
