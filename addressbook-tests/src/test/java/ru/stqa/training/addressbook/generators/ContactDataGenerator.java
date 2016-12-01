@@ -81,8 +81,19 @@ public class ContactDataGenerator {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactData().withFname(String.format(properties.getProperty("contactfname") + i)).withLname(String.format(properties.getProperty("contactlname") + i)).
-                    withAddress(String.format(properties.getProperty("contactaddress") + i)));
+            contacts.add(new ContactData().withFname(String.format(properties.getProperty("contactfname") + i)).
+                    withLname(String.format(properties.getProperty("contactlname") + i)).
+                    withAddress(String.format(properties.getProperty("contactaddress") + i)).
+                    withHomephone(String.format(properties.getProperty("contacthomephone") + i)).
+                    withMobilephone(String.format(properties.getProperty("contactmobilephone") + i)).
+                    withWorkphone(String.format(properties.getProperty("contactworkphone") + i)).
+                    withEmail(String.format(properties.getProperty("contactemail") + i)).
+                    withEmail2(String.format(properties.getProperty("contactemail2") + i)).
+                    withEmail3(String.format(properties.getProperty("contactemail3") + i)).
+                    withDay(String.format(properties.getProperty("contactday") + i)).
+                    withMonth(String.format(properties.getProperty("contactmonth") + i)).
+                    withYear(String.format(properties.getProperty("contactyear") + i)).
+                    withGroup(String.format(properties.getProperty("contactgroup") + i)));
         }
         System.out.println(contacts);
         return contacts;

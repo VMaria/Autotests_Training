@@ -2,6 +2,43 @@
   {
     "fname": "FisrtName0",
     "lname": "LastName0",
-    "address": "Address0"
+    "address": "Address0",
+    "homephone": "(111)1110",
+    "mobilephone": "22-22-220",
+    "workphone": "33 33 330",
+    "email": "email@test.com0",
+    "email2": "email2@test.com0",
+    "email3": "email3@test.com0",
+    "day": "10",
+    "month": "May0",
+    "year": "2000"
+  },
+  {
+    "fname": "FisrtName1",
+    "lname": "LastName1",
+    "address": "Address1",
+    "homephone": "(111)1111",
+    "mobilephone": "22-22-221",
+    "workphone": "33 33 331",
+    "email": "email@test.com1",
+    "email2": "email2@test.com1",
+    "email3": "email3@test.com1",
+    "day": "11",
+    "month": "May1",
+    "year": "2001"
+  },
+  {
+    "fname": "FisrtName2",
+    "lname": "LastName2",
+    "address": "Address2",
+    "homephone": "(111)1112",
+    "mobilephone": "22-22-222",
+    "workphone": "33 33 332",
+    "email": "email@test.com2",
+    "email2": "email2@test.com2",
+    "email3": "email3@test.com2",
+    "day": "12",
+    "month": "May2",
+    "year": "2002"
   }
 ]

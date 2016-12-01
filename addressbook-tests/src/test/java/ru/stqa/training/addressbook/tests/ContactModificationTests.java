@@ -23,7 +23,7 @@ public class ContactModificationTests extends TestBase {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         app.goTo().homePage();
-        if (app.contact().list().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             app.contact().create(new ContactData().withFname(properties.getProperty("contactfname")).withLname(properties.getProperty("contactlname")).
                     withTitle(properties.getProperty("contacttitle")).withAddress(properties.getProperty("contactaddress")).
                     withHomephone(properties.getProperty("contacthomephone")).withMobilephone(properties.getProperty("contactmobilephone")).
@@ -37,7 +37,7 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() throws IOException {
 
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData().withId(modifiedContact.getId()).withFname(properties.getProperty("contactfname")).withLname(properties.getProperty("contactlname")).
                 withTitle(properties.getProperty("contacttitle")).withAddress(properties.getProperty("contactaddress")).
@@ -48,7 +48,7 @@ public class ContactModificationTests extends TestBase {
         app.contact().modify(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 }

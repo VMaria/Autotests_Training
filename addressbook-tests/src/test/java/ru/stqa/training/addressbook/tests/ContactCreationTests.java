@@ -50,13 +50,13 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) throws IOException {
         //File photo = new File("src/test/resources/photo.jpg");
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().create(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         System.out.println(app.contact().count());
         System.out.println(before.size() + 1);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         System.out.println(before);
         System.out.println(after);
         assertThat(after, equalTo(
