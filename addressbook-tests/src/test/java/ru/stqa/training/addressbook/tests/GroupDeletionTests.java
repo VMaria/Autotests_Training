@@ -23,7 +23,7 @@ public class GroupDeletionTests extends TestBase {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         app.goTo().groupPage();
-        if (app.group().all().size() == 0) {
+        if (app.db().groups().size() == 0) {
             app.group().create(new GroupData().withName(properties.getProperty("groupname")));
         }
     }
@@ -31,11 +31,11 @@ public class GroupDeletionTests extends TestBase {
     @Test
     public void testGroupDeletion() throws IOException {
 
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData deletedGroup = before.iterator().next();
         app.group().delete(deletedGroup);
         assertThat(app.group().count(), equalTo(before.size() - 1));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         before.remove(deletedGroup);
         assertThat(after, equalTo(before.without(deletedGroup)));
 
