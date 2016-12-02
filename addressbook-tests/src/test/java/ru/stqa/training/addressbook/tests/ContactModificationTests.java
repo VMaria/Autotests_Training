@@ -39,7 +39,7 @@ public class ContactModificationTests extends TestBase {
         app.goTo().homePage();
         Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
-        ContactData contact = new ContactData().withId(modifiedContact.getId()).withFname(properties.getProperty("contactfname")).withLname(properties.getProperty("contactlname")).
+        ContactData contact = new ContactData().withId(modifiedContact.getId()).withFname(properties.getProperty("contactfnamemodif")).withLname(properties.getProperty("contactlname")).
                 withTitle(properties.getProperty("contacttitle")).withAddress(properties.getProperty("contactaddress")).
                 withHomephone(properties.getProperty("contacthomephone")).withMobilephone(properties.getProperty("contactmobilephone")).
                 withWorkphone(properties.getProperty("contactworkphone")).withEmail(properties.getProperty("contactemail")).withEmail2(properties.getProperty("contactemail2")).

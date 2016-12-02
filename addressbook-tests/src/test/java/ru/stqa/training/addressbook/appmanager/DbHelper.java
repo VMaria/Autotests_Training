@@ -9,8 +9,6 @@ import ru.stqa.training.addressbook.model.ContactData;
 import ru.stqa.training.addressbook.model.Contacts;
 import ru.stqa.training.addressbook.model.GroupData;
 import ru.stqa.training.addressbook.model.Groups;
-
-import java.security.acl.Group;
 import java.util.List;
 
 public class DbHelper {
