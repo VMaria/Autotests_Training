@@ -160,7 +160,7 @@ public class ContactHelper extends HelperBase {
                 String lname = element.findElement(By.xpath(".//td[2]")).getText();
                 int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
                 ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname).withAddress("Address").
-                        withDay("5").withMonth("January").withYear("2000").withGroup("test1");
+                        withDay("5").withMonth("January").withYear("2000");
                 contacts.add(contact);
             }
         return contacts;
@@ -186,7 +186,7 @@ public class ContactHelper extends HelperBase {
             String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
             contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withTitle(properties.getProperty("contacttitle")).
               withAddress(address).withAllPhones(allPhones).withAllEmails(allEmails).withDay(properties.getProperty("contactday")).
-                    withMonth(properties.getProperty("contactmonth")).withYear(properties.getProperty("contactyear")).withGroup(properties.getProperty("contactgroup")));
+                    withMonth(properties.getProperty("contactmonth")).withYear(properties.getProperty("contactyear")));
 //            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
 //            contactCache.add(new ContactData().withId(id).withFname(fname).withLname(lname).withAddress("Address"));
 //                    withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).

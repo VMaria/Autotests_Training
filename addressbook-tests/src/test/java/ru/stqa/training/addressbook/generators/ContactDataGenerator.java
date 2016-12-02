@@ -92,8 +92,7 @@ public class ContactDataGenerator {
                     withEmail3(String.format(properties.getProperty("contactemail3") + i)).
                     withDay(String.format(properties.getProperty("contactday") + i)).
                     withMonth(String.format(properties.getProperty("contactmonth") + i)).
-                    withYear(String.format(properties.getProperty("contactyear") + i)).
-                    withGroup(String.format(properties.getProperty("contactgroup") + i)));
+                    withYear(String.format(properties.getProperty("contactyear") + i)));
         }
         System.out.println(contacts);
         return contacts;
