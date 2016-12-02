@@ -61,6 +61,7 @@ public class ContactCreationTests extends TestBase {
         System.out.println(after);
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        verifyContactListInUI();
         //Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
         //before.sort(byId);
         //after.sort(byId);

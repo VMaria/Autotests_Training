@@ -9,6 +9,8 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.training.addressbook.appmanager.ApplicationManager;
+import ru.stqa.training.addressbook.model.ContactData;
+import ru.stqa.training.addressbook.model.Contacts;
 import ru.stqa.training.addressbook.model.GroupData;
 import ru.stqa.training.addressbook.model.Groups;
 
@@ -54,6 +56,17 @@ public class TestBase {
             Groups uiGroups = app.group().all();
             assertThat(uiGroups, equalTo(dbGroups.stream().map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
                     .collect(Collectors.toSet())));
+        }
+    }
+
+    public void verifyContactListInUI() throws IOException {
+
+        if (Boolean.getBoolean("verfifyUI")) {
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contact().all();
+            assertThat(uiContacts, equalTo(dbContacts.stream().map((g) -> new ContactData().withId(g.getId()).withFname(g.getFname()).withLname(g.getLname())
+            .withHomephone(g.getHomephone()).withMobilephone(g.getMobilephone()).withWorkphone(g.getWorkphone()).withEmail(g.getEmail()).withEmail2(g.getEmail2())
+                    .withEmail3(g.getEmail3())).collect(Collectors.toSet())));
         }
     }
 
