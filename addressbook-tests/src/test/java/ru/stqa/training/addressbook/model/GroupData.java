@@ -84,6 +84,7 @@ public class GroupData {
     }
 
     public Contacts getContacts() {
+
         return new Contacts(contacts);
     }
 
