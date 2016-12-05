@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.training.addressbook.model.ContactData;
 import ru.stqa.training.addressbook.model.Contacts;
+import ru.stqa.training.addressbook.model.GroupData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,6 +92,16 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 
+    public void selectGroup(GroupData group) {
+
+        select(By.name("to_group"), group.getName());
+        //wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    public void submitAddingContactToGroup() {
+        click(By.name("add"));
+    }
+
     public void closeDialogWindow() {
 
         wd.switchTo().alert().accept();
@@ -121,6 +132,16 @@ public class ContactHelper extends HelperBase {
         closeDialogWindow();
         contactCache = null;
     }
+
+    public void addToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectGroup(group);
+        submitAddingContactToGroup();
+    }
+
+    //public void getContactsForGroup(ContactData contacts, GroupData groups) {
+
+    //}
 
     public ContactData infoFromEditForm(ContactData contact) {
         initContactModification(contact.getId());
