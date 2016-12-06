@@ -13,14 +13,14 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class ApplicationManager {
 
+public class ApplicationManager {
     private final Properties properties;
     WebDriver wd;
 
     private String browser;
-    public ApplicationManager(String browser) {
 
+    public ApplicationManager(String browser) {
         this.browser = browser;
         properties = new Properties();
     }
@@ -36,9 +36,8 @@ public class ApplicationManager {
         } else if (Objects.equals(browser, BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         }
-
-        wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        wd.get(properties.getProperty("baseUrl"));
+        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        wd.get(properties.getProperty("web.baseUrl"));
     }
 
     public void stop() {
@@ -52,10 +51,12 @@ public class ApplicationManager {
     }
 
     public String getProperty(String key) {
+
         return properties.getProperty(key);
     }
 
     public RegistrationHelper registration() {
+
         return new RegistrationHelper(this);
     }
 }
