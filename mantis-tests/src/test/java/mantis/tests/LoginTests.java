@@ -3,6 +3,7 @@ package mantis.tests;
 import mantis.appmanager.HTTPSession;
 import org.testng.annotations.Test;
 import java.io.IOException;
+import mantis.tests.TestBase;
 
 import static org.testng.AssertJUnit.assertTrue;
 

@@ -47,10 +47,15 @@ public class ApplicationManager {
     }
 
     public HTTPSession newSession() {
+
         return new HTTPSession(this);
     }
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        return new RegistrationHelper(this);
     }
 }
