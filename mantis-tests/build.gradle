@@ -12,7 +12,7 @@ dependencies {
     compile 'commons-net:commons-net:3.5'
 }
 
-test {
+test{
     useTestNG() {
         suites 'src/test/resources/testng.xml'
     }
@@ -25,4 +25,3 @@ test {
     if (project.hasProperty('verifyUI'))
         systemProperty 'verifyUI', "${verifyUI}"
 }
-

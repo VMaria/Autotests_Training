@@ -1,0 +1,20 @@
+<list>
+  <ru.stqa.training.addressbook.model.ContactData>
+    <contact>2147483647</contact>
+    <fname>FName0</fname>
+    <lname>LName0</lname>
+    <address>Address0</address>
+  </ru.stqa.training.addressbook.model.ContactData>
+  <ru.stqa.training.addressbook.model.ContactData>
+    <contact>2147483647</contact>
+    <fname>FName1</fname>
+    <lname>LName1</lname>
+    <address>Address1</address>
+  </ru.stqa.training.addressbook.model.ContactData>
+  <ru.stqa.training.addressbook.model.ContactData>
+    <contact>2147483647</contact>
+    <fname>FName2</fname>
+    <lname>LName2</lname>
+    <address>Address2</address>
+  </ru.stqa.training.addressbook.model.ContactData>
+</list>
