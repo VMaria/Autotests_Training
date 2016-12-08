@@ -17,6 +17,15 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void manageUsers() {
+
         click(By.cssSelector("a[href='/mantisbt-1.3.4/manage_user_page.php']"));
+    }
+
+    public void editUser(int id) {
+        click (By.cssSelector("a[manage_user_edit_page.php?user_id="+ id +"]"));
+    }
+
+    public void reset () {
+        click(By.cssSelector("input[value='Reset Password']"));
     }
 }

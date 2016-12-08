@@ -1,6 +1,7 @@
 package mantis.tests;
 
 import mantis.appmanager.HTTPSession;
+import mantis.model.AccountData;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,7 +26,11 @@ public class PasswordChangingTests extends TestBase{
         app.session();
         app.goTo().manage();
         app.goTo().manageUsers();
+        AccountData account = app.db().accounts().iterator().next();
+        app.goTo().editUser(account.getId());
+        app.goTo().reset();
 
+        app.db().accounts();
     }
 
 
