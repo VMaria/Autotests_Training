@@ -1,6 +1,5 @@
 package ru.stqa.training.addressbook.appmanager;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

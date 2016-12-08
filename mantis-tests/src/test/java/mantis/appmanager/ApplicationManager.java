@@ -14,13 +14,15 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+
     private final Properties properties;
     private WebDriver wd;
-
     private String browser;
     private RegistrationHelper registrationHelper;
     private FTPHelper ftp;
     private MailHelper mailHelper;
+    private NavigationHelper navigationHelper;
+    private PasswordChangingHelper passwordChangingHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -30,6 +32,8 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        navigationHelper = new NavigationHelper(wd);
+
     }
 
     public void stop() {
@@ -41,6 +45,11 @@ public class ApplicationManager {
     public HTTPSession newSession() {
 
         return new HTTPSession(this);
+    }
+
+    public PasswordChangingHelper passwordchanging() {
+
+        return passwordChangingHelper;
     }
 
     public String getProperty(String key) {
@@ -82,5 +91,10 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
+    }
+
+    public NavigationHelper goTo() {
+
+        return navigationHelper;
     }
 }
