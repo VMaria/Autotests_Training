@@ -13,7 +13,8 @@ public class NavigationHelper extends HelperBase {
 
     public void manage() {
 
-        click(By.cssSelector("a[href='/mantisbt-1.3.4/manage_overview_page.php']"));
+        //click(By.cssSelector("a[href='/mantisbt-1.3.4/manage_overview_page.php']"));
+        click(By.xpath("//ul[@id='menu-items']//li[.='Manage']"));
     }
 
     public void manageUsers() {
