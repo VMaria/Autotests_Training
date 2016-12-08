@@ -22,6 +22,8 @@ public class ApplicationManager {
     private FTPHelper ftp;
     private MailHelper mailHelper;
     private NavigationHelper navigationHelper;
+    private SessionHelper sessionHelper;
+    private DbHelper dbHelper;
     private PasswordChangingHelper passwordChangingHelper;
 
     public ApplicationManager(String browser) {
@@ -32,8 +34,8 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        navigationHelper = new NavigationHelper(wd);
-
+        dbHelper = new DbHelper();
+        navigationHelper = new NavigationHelper(this);
     }
 
     public void stop() {
@@ -42,14 +44,30 @@ public class ApplicationManager {
         }
     }
 
+    public WebDriver getDriver() {
+        if (wd == null) {
+            if (Objects.equals(browser, BrowserType.FIREFOX)) {
+                wd = new FirefoxDriver();
+            } else if (Objects.equals(browser, BrowserType.CHROME)) {
+                wd = new ChromeDriver();
+            } else if (Objects.equals(browser, BrowserType.IE)) {
+                wd = new InternetExplorerDriver();
+            }
+            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+            wd.get(properties.getProperty("web.baseUrl"));
+        }
+        return wd;
+    }
+
     public HTTPSession newSession() {
 
         return new HTTPSession(this);
     }
 
-    public PasswordChangingHelper passwordchanging() {
-
-        return passwordChangingHelper;
+    public SessionHelper session() {
+        sessionHelper = new SessionHelper(this);
+        sessionHelper.login(properties.getProperty("adminLogin"),properties.getProperty("adminPassword"));
+        return sessionHelper;
     }
 
     public String getProperty(String key) {
@@ -71,21 +89,6 @@ public class ApplicationManager {
         return ftp;
     }
 
-    public WebDriver getDriver() {
-        if (wd == null) {
-            if (Objects.equals(browser, BrowserType.FIREFOX)) {
-                wd = new FirefoxDriver();
-            } else if (Objects.equals(browser, BrowserType.CHROME)) {
-                wd = new ChromeDriver();
-            } else if (Objects.equals(browser, BrowserType.IE)) {
-                wd = new InternetExplorerDriver();
-            }
-            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-            wd.get(properties.getProperty("web.baseUrl"));
-        }
-        return wd;
-    }
-
     public MailHelper mail() {
         if (mailHelper == null) {
             mailHelper = new MailHelper(this);
@@ -96,5 +99,10 @@ public class ApplicationManager {
     public NavigationHelper goTo() {
 
         return navigationHelper;
+    }
+
+    public DbHelper db() {
+
+        return dbHelper;
     }
 }

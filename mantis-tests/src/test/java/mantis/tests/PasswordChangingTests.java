@@ -21,8 +21,8 @@ public class PasswordChangingTests extends TestBase{
 
     @Test
     public void testPasswordChanging() throws IOException {
-        HTTPSession session = app.newSession();
-        assertTrue(session.login("administrator", "root"));
+        app.getDriver();
+        app.session();
         app.goTo().manage();
         app.goTo().manageUsers();
 
