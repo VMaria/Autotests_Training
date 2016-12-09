@@ -27,12 +27,12 @@ import javax.persistence.Table;
 
         @Expose
         @Column(name = "email")
-        @Type(type = "text")
+        //@Type(type = "varchar")
         private String email;
 
         @Expose
         @Column(name = "password")
-        @Type(type = "text")
+        //@Type(type = "text")
         private String password;
 
         public String getName() {
