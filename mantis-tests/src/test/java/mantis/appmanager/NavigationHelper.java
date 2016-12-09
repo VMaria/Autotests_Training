@@ -23,6 +23,7 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void editUser(int id) {
+
         click (By.cssSelector("a[href='manage_user_edit_page.php?user_id="+ id +"']"));
     }
 
