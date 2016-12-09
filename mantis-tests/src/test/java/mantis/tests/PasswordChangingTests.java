@@ -2,11 +2,15 @@ package mantis.tests;
 
 import mantis.appmanager.HTTPSession;
 import mantis.model.AccountData;
+import mantis.model.MailMessage;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.lanwen.verbalregex.VerbalExpression;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -22,6 +26,7 @@ public class PasswordChangingTests extends TestBase{
 
     @Test
     public void testPasswordChanging() throws IOException {
+        String password = "password";
         app.getDriver();
         app.session();
         app.goTo().manage();
@@ -29,10 +34,18 @@ public class PasswordChangingTests extends TestBase{
         AccountData account = app.db().accounts().iterator().next();
         app.goTo().editUser(account.getId());
         app.goTo().reset();
-
+        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        String confirmationLink = findConfirmationLink(mailMessages, account.getEmail());
+        app.password().change(confirmationLink, password);
+        Assert.assertTrue(app.newSession().login(account.getName(), password));
         app.db().accounts();
     }
 
+    private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
+        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
+        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+        return regex.getText(mailMessage.text);
+    }
 
     @AfterMethod(alwaysRun = true)
     public void stopMailServer() {
