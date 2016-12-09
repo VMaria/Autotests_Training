@@ -1,7 +1,7 @@
 package mantis.tests;
 
-import mantis.appmanager.HTTPSession;
 import mantis.model.AccountData;
+import mantis.model.Accounts;
 import mantis.model.MailMessage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -31,7 +31,7 @@ public class PasswordChangingTests extends TestBase{
         app.session();
         app.goTo().manage();
         app.goTo().manageUsers();
-        AccountData account = app.db().accounts().iterator().next();
+        AccountData account = app.password().selectAccount();
         app.goTo().editUser(account.getId());
         app.goTo().reset();
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);

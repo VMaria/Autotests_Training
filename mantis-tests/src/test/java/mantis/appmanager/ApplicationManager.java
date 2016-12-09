@@ -35,7 +35,7 @@ public class ApplicationManager {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         navigationHelper = new NavigationHelper(this);
-//        dbHelper = new DbHelper();
+        dbHelper = new DbHelper();
     }
 
     public void stop() {
