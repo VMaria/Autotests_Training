@@ -2,7 +2,7 @@ package ru.stqa.training.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.training.addressbook.model.GroupData;

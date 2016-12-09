@@ -12,11 +12,8 @@ import ru.lanwen.verbalregex.VerbalExpression;
 import java.io.IOException;
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertTrue;
 
 public class PasswordChangingTests extends TestBase{
-
-
 
     @BeforeMethod
     public void startMailServer() {
