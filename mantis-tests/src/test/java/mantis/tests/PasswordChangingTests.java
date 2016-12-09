@@ -31,15 +31,16 @@ public class PasswordChangingTests extends TestBase{
         AccountData account = app.password().selectAccount();
         app.goTo().editUser(account.getId());
         app.goTo().reset();
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(10, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, account.getEmail());
+        System.out.println("confirmation link    "+confirmationLink);
         app.password().change(confirmationLink, password);
         Assert.assertTrue(app.newSession().login(account.getName(), password));
         app.db().accounts();
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
+        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findAny().get();
         VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
     }

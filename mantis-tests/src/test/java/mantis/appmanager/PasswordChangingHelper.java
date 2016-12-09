@@ -19,13 +19,16 @@ public class PasswordChangingHelper extends HelperBase {
         click(By.cssSelector("input[value='Update_User']"));
     }
 
+    private AccountData account = null;
+
     public AccountData selectAccount() {
-        AccountData account = app.db().accounts().iterator().next();
     Accounts accounts = app.db().accounts();
         for (AccountData account1: accounts) {
-        if (account1.getName() != "administrator")
-            account = account1;
-            return account;
+        if (account1.getName() == "administrator") {
+            accounts.iterator().next();
+        } else {
+            return account = account1;
+        }
         }
         return account;
     }
