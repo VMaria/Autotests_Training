@@ -10,7 +10,13 @@ public class GeoIPServiceTests {
 
     @Test
     public void testMyIp() {
-        GeoIP geoIp = new GeoIPService().getGeoIPServiceSoap12().getGeoIP("91.221.60.74");
-        assertEquals(geoIp.getCountryCode(), "RUS");
+        GeoIP geoIP = new GeoIPService().getGeoIPServiceSoap12().getGeoIP("91.221.60.74");
+        assertEquals(geoIP.getCountryCode(), "CZE");
+    }
+
+    @Test
+    public void testInvalidIp() {
+        GeoIP geoIP = new GeoIPService().getGeoIPServiceSoap12().getGeoIP("91.221.60.xxx");
+        assertEquals(geoIP.getCountryCode(), "RUS");
     }
 }
