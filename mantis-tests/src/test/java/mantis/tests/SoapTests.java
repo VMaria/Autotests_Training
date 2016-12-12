@@ -30,4 +30,10 @@ public class SoapTests extends TestBase{
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSummary(), created.getSummary());
     }
+
+    @Test
+    public void testIssueStatus() throws RemoteException, ServiceException, MalformedURLException {
+        skipIfNotFixed(00001);
+        System.out.println("Тест пройден");
+    }
 }
