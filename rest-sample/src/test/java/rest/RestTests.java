@@ -9,9 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.apache.http.client.fluent.Request;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 public class RestTests {
@@ -35,6 +33,7 @@ public class RestTests {
     }
 
     private Executor getExecutor() {
+
         return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
     }
 
