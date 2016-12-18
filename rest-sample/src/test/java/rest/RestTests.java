@@ -9,10 +9,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.apache.http.client.fluent.Request;
+
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.Set;
 
-public class RestTests {
+public class RestTests extends TestBase{
 
     @Test
     public void testCreateIssue() throws IOException {
@@ -33,7 +37,6 @@ public class RestTests {
     }
 
     private Executor getExecutor() {
-
         return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
     }
 
@@ -46,4 +49,10 @@ public class RestTests {
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 
+
+    @Test
+    public void testIssueStatus() throws RemoteException, ServiceException, MalformedURLException {
+        skipIfNotFixed(00001);
+        System.out.println("Тест пройден");
+    }
 }
