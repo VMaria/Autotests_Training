@@ -38,6 +38,7 @@ public class Issue {
     }
 
     public String getSubject() {
+
         return subject;
     }
 
@@ -47,6 +48,7 @@ public class Issue {
     }
 
     public String getDescription() {
+
         return description;
     }
 

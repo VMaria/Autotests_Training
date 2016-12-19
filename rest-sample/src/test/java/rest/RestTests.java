@@ -5,15 +5,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.fluent.Executor;
+import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.apache.http.client.fluent.Request;
-
 import javax.xml.rpc.ServiceException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
 import java.util.Set;
 
 public class RestTests extends TestBase{
@@ -28,7 +25,15 @@ public class RestTests extends TestBase{
         Assert.assertEquals(newIssues, oldIssues);
     }
 
-    private Set<Issue> getIssues() throws IOException {
+    @Test
+    public void testIssueStatus() throws IOException, ServiceException {
+        skipIfNotFixed(00001);
+        System.out.println("Тест пройден");
+    }
+
+
+
+    public Set<Issue> getIssues() throws IOException {
         String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues.json")).returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
@@ -40,19 +45,13 @@ public class RestTests extends TestBase{
         return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
     }
 
-    private int createIssue(Issue newIssue) throws IOException {
+    public int createIssue(Issue newIssue) throws IOException {
         String json = getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json")
-        .bodyForm(new BasicNameValuePair("subject", new Issue().getSubject()),
-                  new BasicNameValuePair("description", new Issue().getDescription())))
-        .returnContent().asString();
+                .bodyForm(new BasicNameValuePair("subject", new Issue().getSubject()),
+                        new BasicNameValuePair("description", new Issue().getDescription())))
+                .returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 
-
-    @Test
-    public void testIssueStatus() throws RemoteException, ServiceException, MalformedURLException {
-        skipIfNotFixed(00001);
-        System.out.println("Тест пройден");
-    }
 }
